@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Icon List Block
  * Description: Show your icon list in web.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: bPlugins
  * Author URI: https://bplugins.com
  * License: GPLv3
@@ -27,7 +27,7 @@ if ( function_exists( 'ilb_fs' ) ) {
     } );
 } else {
     // Constant
-    define( 'ILB_VERSION', ( isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.1.0' ) );
+    define( 'ILB_VERSION', ( isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.1.1' ) );
     define( 'ILB_DIR_URL', plugin_dir_url( __FILE__ ) );
     define( 'ILB_DIR_PATH', plugin_dir_path( __FILE__ ) );
     define( 'ILB_HAS_FREE', 'icon-list-block/index.php' === plugin_basename( __FILE__ ) );
@@ -163,7 +163,9 @@ if ( function_exists( 'ilb_fs' ) ) {
 
             function renderToolsPage() {
                 ?>
-                <div id="bplAdminHelpPage" data-is-premium='<?php 
+                <div id="bplAdminHelpPage" data-version='<?php 
+                echo esc_attr( ILB_VERSION );
+                ?>' data-is-premium='<?php 
                 echo esc_attr( ilbIsPremium() );
                 ?>'>
                     <div class='renderHere'>
@@ -207,7 +209,7 @@ if ( function_exists( 'ilb_fs' ) ) {
                         </div>
                     </div>
                 </div>
-            <?php 
+<?php 
             }
 
             function adminEnqueueScripts( $hook ) {
