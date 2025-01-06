@@ -4,7 +4,7 @@ Donate link: https://www.buymeacoffee.com/abuhayat
 Tags: block, icon list, bullet list, menu icon, list icon
 Requires at least: 6.5+
 Tested up to: 6.7.1
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 Requires PHP: 7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,7 +16,7 @@ Create a list with an icon with this block plugin.
 Create a list with an icon with this block plugin. If you want to make a list with icons this plugin is for you. It comes up with many options to fulfill your needs.
 
 
-**[Demos](https://bblockswp.com/demo/icon-list/)**
+👉[Plugin Demo](https://bblockswp.com/demo/tabbed-contents-default/) | [Get Pro Version](https://bplugins.com/products/icon-list-block/#pricing)👈
 
 
 = Key Features =
@@ -121,6 +121,9 @@ You can post your questions on the [support forum here](https://wordpress.org/su
 
 
 == Changelog ==
+
+= 1.1.2 - 06 Jan 25 =
+* Added Shortcode support
 
 = 1.1.1 - 26 Dec 24 =
 * admin dynamic version created.

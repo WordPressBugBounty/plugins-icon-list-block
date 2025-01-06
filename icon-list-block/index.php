@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Icon List Block
  * Description: Show your icon list in web.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: bPlugins
  * Author URI: https://bplugins.com
  * License: GPLv3
@@ -27,7 +27,7 @@ if ( function_exists( 'ilb_fs' ) ) {
     } );
 } else {
     // Constant
-    define( 'ILB_VERSION', ( isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.1.1' ) );
+    define( 'ILB_VERSION', ( isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.1.2' ) );
     define( 'ILB_DIR_URL', plugin_dir_url( __FILE__ ) );
     define( 'ILB_DIR_PATH', plugin_dir_path( __FILE__ ) );
     define( 'ILB_HAS_FREE', 'icon-list-block/index.php' === plugin_basename( __FILE__ ) );
@@ -59,15 +59,12 @@ if ( function_exists( 'ilb_fs' ) ) {
                     'has_paid_plans'      => true,
                     'trial'               => array(
                         'days'               => 7,
-                        'is_require_payment' => true,
+                        'is_require_payment' => false,
                     ),
                     'menu'                => array(
-                        'slug'       => 'icon-list',
-                        'first-path' => 'tools.php?page=icon-list#/dashboard',
+                        'slug'       => 'edit.php?post_type=icon-list-block',
+                        'first-path' => 'edit.php?post_type=icon-list-block&page=ilb_demo_page',
                         'support'    => false,
-                        'parent'     => array(
-                            'slug' => 'tools.php',
-                        ),
                     ),
                 );
                 $ilb_fs = ( ILB_HAS_PRO && file_exists( $fsStartPath ) ? fs_dynamic_init( $ilbConfig ) : fs_lite_dynamic_init( $ilbConfig ) );
@@ -91,13 +88,75 @@ if ( function_exists( 'ilb_fs' ) ) {
                 add_action( 'enqueue_block_assets', [$this, 'enqueueBlockAssets'] );
                 add_action( 'init', [$this, 'onInit'] );
                 // sub menu function hooks
-                add_action( 'admin_menu', [$this, 'addToolsSubmenu'] );
+                add_action( 'admin_menu', [$this, 'addSubmenu'] );
                 add_action( 'admin_enqueue_scripts', [$this, 'adminEnqueueScripts'] );
+                // Post Type function hooks
+                add_action( 'init', array($this, 'ilb_icon_list_block_post_type') );
+                // shortcode type function hooks
+                add_shortcode( 'icon-list', [$this, 'ilb_shortcode_handler'] );
+                //manage column
+                add_filter( 'manage_icon-list-block_posts_columns', [$this, 'iconListManageColumns'], 10 );
+                // Custom manage column
+                add_action(
+                    'manage_icon-list-block_posts_custom_column',
+                    [$this, 'iconListManageCustomColumns'],
+                    10,
+                    2
+                );
                 // Premium checker
                 add_action( 'wp_ajax_ilbPipeChecker', [$this, 'ilbPipeChecker'] );
                 add_action( 'wp_ajax_nopriv_ilbPipeChecker', [$this, 'ilbPipeChecker'] );
                 add_action( 'admin_init', [$this, 'registerSettings'] );
                 add_action( 'rest_api_init', [$this, 'registerSettings'] );
+            }
+
+            //manage column
+            function iconListManageColumns( $defaults ) {
+                unset($defaults['date']);
+                $defaults['shortcode'] = 'ShortCode';
+                $defaults['date'] = 'Date';
+                return $defaults;
+            }
+
+            // custom manage column
+            function iconListManageCustomColumns( $column_name, $post_ID ) {
+                if ( $column_name == 'shortcode' ) {
+                    echo '<div class="bPlAdminShortcode" id="bPlAdminShortcode-' . esc_attr( $post_ID ) . '">
+					<input value="[icon-list id=' . esc_attr( $post_ID ) . ']" onclick="copyBPlAdminShortcode(\'' . esc_attr( $post_ID ) . '\')" readonly>
+					<span class="tooltip">Copy To Clipboard</span>
+				</div>';
+                }
+            }
+
+            // shortcode function calls
+            function ilb_shortcode_handler( $attributes ) {
+                $postID = $attributes['id'];
+                $post = get_post( $postID );
+                $blocks = parse_blocks( $post->post_content );
+                ob_start();
+                echo render_block( $blocks[0] );
+                return ob_get_clean();
+            }
+
+            // Custom Post Type function calls
+            function ilb_icon_list_block_post_type() {
+                register_post_type( 'icon-list-block', array(
+                    'label'         => 'Icon List',
+                    'labels'        => [
+                        'add_new'        => 'Add New',
+                        'add_new_item'   => 'Add New Icon List',
+                        'edit_item'      => 'Edit Tabbed',
+                        'not_found'      => 'There is no please add one',
+                        'item_published' => 'Icon List Published',
+                        'item_updated'   => 'Icon List Updated',
+                    ],
+                    'public'        => false,
+                    'show_ui'       => true,
+                    'show_in_rest'  => true,
+                    'menu_icon'     => 'dashicons-editor-ul',
+                    'template'      => [['ilb/icon-list']],
+                    'template_lock' => 'all',
+                ) );
             }
 
             function ilbPipeChecker() {
@@ -140,19 +199,14 @@ if ( function_exists( 'ilb_fs' ) ) {
                 register_block_type( __DIR__ . '/build' );
             }
 
-            function addToolsSubmenu() {
+            function addSubmenu() {
                 add_submenu_page(
-                    'tools.php',
-                    // Parent slug (Tools menu)
-                    __( 'Icon List Block', 'icon-list' ),
-                    // Page title
-                    __( 'Icon List Block', 'icon-list' ),
-                    // Menu title
+                    'edit.php?post_type=icon-list-block',
+                    'Demo Page',
+                    'Demo & Help',
                     'manage_options',
-                    // Capability required to access this menu
-                    'icon-list',
-                    // Menu slug
-                    [$this, 'renderToolsPage']
+                    'ilb_demo_page',
+                    [$this, 'ilb_render_demo_page']
                 );
             }
 
@@ -161,7 +215,7 @@ if ( function_exists( 'ilb_fs' ) ) {
                 return render_block( $parseBlocks[0] );
             }
 
-            function renderToolsPage() {
+            function ilb_render_demo_page() {
                 ?>
                 <div id="bplAdminHelpPage" data-version='<?php 
                 echo esc_attr( ILB_VERSION );
@@ -212,51 +266,62 @@ if ( function_exists( 'ilb_fs' ) ) {
 <?php 
             }
 
-            function adminEnqueueScripts( $hook ) {
-                if ( 'tools_page_icon-list' === $hook ) {
-                    wp_register_script(
-                        'ilb-view',
-                        ILB_DIR_URL . 'build/view.js',
-                        ['react', 'react-dom'],
-                        ILB_VERSION
-                    );
-                    wp_register_style(
-                        'fontAwesome',
-                        ILB_DIR_URL . 'assets/css/font-awesome.min.css',
-                        [],
-                        ILB_VERSION
-                    );
-                    wp_register_style(
-                        'ilb-view',
-                        ILB_DIR_URL . 'build/view.css',
-                        ['fontAwesome'],
-                        ILB_VERSION
-                    );
-                    wp_enqueue_script(
-                        'fs',
-                        ILB_DIR_URL . 'assets/js/fs.js',
-                        [],
-                        '1'
-                    );
-                    wp_enqueue_style(
-                        'ilb-admin-help',
-                        ILB_DIR_URL . 'build/admin-help.css',
-                        ['ilb-view'],
-                        ILB_VERSION
-                    );
-                    wp_enqueue_script(
-                        'ilb-admin-help',
-                        ILB_DIR_URL . 'build/admin-help.js',
-                        [
-                            'react',
-                            'react-dom',
-                            'wp-components',
-                            'fs'
-                        ],
-                        ILB_VERSION
-                    );
-                    wp_set_script_translations( 'ilb-admin-help', 'icon-list', ILB_DIR_PATH . 'languages' );
-                }
+            function adminEnqueueScripts() {
+                wp_enqueue_style(
+                    'admin-post-css',
+                    ILB_DIR_URL . 'build/admin-post-css.css',
+                    [],
+                    ILB_VERSION
+                );
+                wp_enqueue_script(
+                    'admin-post-js',
+                    ILB_DIR_URL . 'build/admin-post.js',
+                    [],
+                    ILB_VERSION,
+                    true
+                );
+                wp_register_script(
+                    'ilb-view',
+                    ILB_DIR_URL . 'build/view.js',
+                    ['react', 'react-dom'],
+                    ILB_VERSION
+                );
+                wp_register_style(
+                    'fontAwesome',
+                    ILB_DIR_URL . 'assets/css/font-awesome.min.css',
+                    [],
+                    ILB_VERSION
+                );
+                wp_register_style(
+                    'ilb-view',
+                    ILB_DIR_URL . 'build/view.css',
+                    ['fontAwesome'],
+                    ILB_VERSION
+                );
+                wp_enqueue_script(
+                    'fs',
+                    ILB_DIR_URL . 'assets/js/fs.js',
+                    [],
+                    '1'
+                );
+                wp_enqueue_style(
+                    'ilb-admin-help',
+                    ILB_DIR_URL . 'build/admin-help.css',
+                    ['ilb-view'],
+                    ILB_VERSION
+                );
+                wp_enqueue_script(
+                    'ilb-admin-help',
+                    ILB_DIR_URL . 'build/admin-help.js',
+                    [
+                        'react',
+                        'react-dom',
+                        'wp-components',
+                        'fs'
+                    ],
+                    ILB_VERSION
+                );
+                wp_set_script_translations( 'ilb-admin-help', 'icon-list', ILB_DIR_PATH . 'languages' );
             }
 
         }
