@@ -5,11 +5,11 @@
   "description": "Use icons instead of bullets of list.",
   "category": "widgets",
   "keywords": [
-    "icon block",
+    "feature icon block",
     "menu icon",
     "icon list",
     "list icon",
-    "icon fonts"
+    "feature list"
   ],
   "textdomain": "icon-list",
   "attributes": {
