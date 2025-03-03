@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Icon List Block
  * Description: Show your icon list in web.
- * Version: 1.1.5
+ * Version: 1.1.6
  * Author: bPlugins
  * Author URI: https://bplugins.com
  * License: GPLv3
@@ -28,7 +28,7 @@ if ( function_exists( 'ilb_fs' ) ) {
     // ilb_fs()->set_basename( false, __FILE__ ); activation new hooks replace top all
 } else {
     // Constant
-    define( 'ILB_VERSION', ( isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.1.5' ) );
+    define( 'ILB_VERSION', ( isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.1.6' ) );
     define( 'ILB_DIR_URL', plugin_dir_url( __FILE__ ) );
     define( 'ILB_DIR_PATH', plugin_dir_path( __FILE__ ) );
     define( 'ILB_HAS_FREE', 'icon-list-block/index.php' === plugin_basename( __FILE__ ) );
