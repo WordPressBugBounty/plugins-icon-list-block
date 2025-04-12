@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Icon List Block
  * Description: Show your icon list in web.
- * Version: 1.1.6
+ * Version: 1.1.7
  * Author: bPlugins
  * Author URI: https://bplugins.com
  * License: GPLv3
@@ -28,7 +28,7 @@ if ( function_exists( 'ilb_fs' ) ) {
     // ilb_fs()->set_basename( false, __FILE__ ); activation new hooks replace top all
 } else {
     // Constant
-    define( 'ILB_VERSION', ( isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.1.6' ) );
+    define( 'ILB_VERSION', ( isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.1.7' ) );
     define( 'ILB_DIR_URL', plugin_dir_url( __FILE__ ) );
     define( 'ILB_DIR_PATH', plugin_dir_path( __FILE__ ) );
     define( 'ILB_HAS_FREE', 'icon-list-block/index.php' === plugin_basename( __FILE__ ) );
@@ -292,19 +292,22 @@ if ( function_exists( 'ilb_fs' ) ) {
             }
 
             function adminEnqueueScripts() {
-                wp_enqueue_style(
-                    'admin-post-css',
-                    ILB_DIR_URL . 'build/admin-post-css.css',
-                    [],
-                    ILB_VERSION
-                );
-                wp_enqueue_script(
-                    'admin-post-js',
-                    ILB_DIR_URL . 'build/admin-post.js',
-                    [],
-                    ILB_VERSION,
-                    true
-                );
+                $screen = get_current_screen();
+                if ( isset( $screen->post_type ) && $screen->post_type === 'icon-list-block' ) {
+                    wp_enqueue_style(
+                        'admin-post-css',
+                        ILB_DIR_URL . 'build/admin-post-css.css',
+                        [],
+                        ILB_VERSION
+                    );
+                    wp_enqueue_script(
+                        'admin-post-js',
+                        ILB_DIR_URL . 'build/admin-post.js',
+                        [],
+                        ILB_VERSION,
+                        true
+                    );
+                }
                 wp_register_script(
                     'ilb-view',
                     ILB_DIR_URL . 'build/view.js',
@@ -323,30 +326,32 @@ if ( function_exists( 'ilb_fs' ) ) {
                     ['fontAwesome'],
                     ILB_VERSION
                 );
-                wp_enqueue_script(
-                    'fs',
-                    ILB_DIR_URL . 'assets/js/fs.js',
-                    [],
-                    '1'
-                );
-                wp_enqueue_style(
-                    'ilb-admin-help',
-                    ILB_DIR_URL . 'build/admin-help.css',
-                    ['ilb-view'],
-                    ILB_VERSION
-                );
-                wp_enqueue_script(
-                    'ilb-admin-help',
-                    ILB_DIR_URL . 'build/admin-help.js',
-                    [
-                        'react',
-                        'react-dom',
-                        'wp-components',
-                        'fs'
-                    ],
-                    ILB_VERSION
-                );
-                wp_set_script_translations( 'ilb-admin-help', 'icon-list', ILB_DIR_PATH . 'languages' );
+                if ( isset( $screen->base ) && $screen->base === 'icon-list-block_page_ilb_demo_page' ) {
+                    wp_enqueue_script(
+                        'fs',
+                        ILB_DIR_URL . 'assets/js/fs.js',
+                        [],
+                        '1'
+                    );
+                    wp_enqueue_style(
+                        'ilb-admin-help',
+                        ILB_DIR_URL . 'build/admin-help.css',
+                        ['ilb-view'],
+                        ILB_VERSION
+                    );
+                    wp_enqueue_script(
+                        'ilb-admin-help',
+                        ILB_DIR_URL . 'build/admin-help.js',
+                        [
+                            'react',
+                            'react-dom',
+                            'wp-components',
+                            'fs'
+                        ],
+                        ILB_VERSION
+                    );
+                    wp_set_script_translations( 'ilb-admin-help', 'icon-list', ILB_DIR_PATH . 'languages' );
+                }
             }
 
         }
