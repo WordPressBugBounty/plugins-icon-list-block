@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Icon List Block
  * Description: Show your icon list in web.
- * Version: 1.1.9
+ * Version: 1.2.3
  * Author: bPlugins
  * Author URI: https://bplugins.com
  * License: GPLv3
@@ -16,19 +16,10 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 if ( function_exists( 'ilb_fs' ) ) {
-    // This for .. if free plugin is installed, and when we will install pro plugin then uninstall free plugin
-    register_activation_hook( __FILE__, function () {
-        if ( is_plugin_active( 'icon-list-block/index.php' ) ) {
-            deactivate_plugins( 'icon-list-block/index.php' );
-        }
-        if ( is_plugin_active( 'icon-list-block-pro/index.php' ) ) {
-            deactivate_plugins( 'icon-list-block-pro/index.php' );
-        }
-    } );
-    // ilb_fs()->set_basename( false, __FILE__ ); activation new hooks replace top all
+    ilb_fs()->set_basename( false, __FILE__ );
 } else {
     // Constant
-    define( 'ILB_VERSION', ( isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.1.9' ) );
+    define( 'ILB_VERSION', ( isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.2.3' ) );
     define( 'ILB_DIR_URL', plugin_dir_url( __FILE__ ) );
     define( 'ILB_DIR_PATH', plugin_dir_path( __FILE__ ) );
     define( 'ILB_HAS_FREE', 'icon-list-block/index.php' === plugin_basename( __FILE__ ) );
@@ -39,7 +30,7 @@ if ( function_exists( 'ilb_fs' ) ) {
             global $ilb_fs;
             if ( !isset( $ilb_fs ) ) {
                 $fsStartPath = dirname( __FILE__ ) . '/freemius/start.php';
-                $bSDKInitPath = dirname( __FILE__ ) . '/bplugins_sdk/init.php';
+                $bSDKInitPath = dirname( __FILE__ ) . '/freemius-lite/start.php';
                 if ( ILB_HAS_PRO && file_exists( $fsStartPath ) ) {
                     require_once $fsStartPath;
                 } else {
@@ -88,9 +79,9 @@ if ( function_exists( 'ilb_fs' ) ) {
             public function __construct() {
                 add_action( 'enqueue_block_assets', [$this, 'enqueueBlockAssets'] );
                 add_action( 'init', [$this, 'onInit'] );
-                // sub menu function hooks
                 add_action( 'admin_menu', [$this, 'addSubmenu'] );
                 add_action( 'admin_enqueue_scripts', [$this, 'adminEnqueueScripts'] );
+                // sub menu function hooks
                 // Post Type function hooks
                 add_action( 'init', array($this, 'ilb_icon_list_block_post_type') );
                 // shortcode type function hooks
@@ -242,67 +233,31 @@ if ( function_exists( 'ilb_fs' ) ) {
 
             function ilb_render_demo_page() {
                 ?>
-                <div id="bplAdminHelpPage" data-version='<?php 
-                echo esc_attr( ILB_VERSION );
-                ?>' data-is-premium='<?php 
-                echo esc_attr( ilbIsPremium() );
-                ?>'>
-                    <div class='renderHere'>
+                <div id="ilbDashboard"
+                        data-info="<?php 
+                echo esc_attr( wp_json_encode( [
+                    'version'   => ILB_VERSION,
+                    'isPremium' => ilbIsPremium(),
+                ] ) );
+                ?>"
+                        >
 
-                    </div>
-                    <div class="templates" style='display: none;'>
-                        <div class="default">
-                            <?php 
-                echo wp_kses_post( $this->renderTemplate( '<!-- wp:ilb/icon-list /-->' ) );
-                ?>
-                        </div>
-                        <div class="theme2">
-                            <?php 
-                echo wp_kses_post( $this->renderTemplate( '<!-- wp:ilb/icon-list {"lists":[{"icon":{"class":"fa-solid fa-star"},"text":"List items with a star","des":"Type your description here","featureDes":"Feature with star","link":"dfdff","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://i.ibb.co.com/X5kT0kp/facebook.png"},{"icon":{"class":"fa-solid fa-check-circle"},"text":"List items with circle","des":"Type your description here","featureDes":"Feature with circle check","link":"dfdf","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://static.vecteezy.com/system/resources/previews/016/716/467/non_2x/twitter-icon-free-png.png"},{"icon":{"class":"fa-solid fa-check-square"},"text":"List items with check","des":"Type your description here","featureDes":"Feature with square check","link":"fdfd","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"},{"icon":{"class":"fa-solid fa-heart"},"text":"List items with heart","des":"Type your description here","featureDes":"Feature with star","link":"dfdff","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png"}],"themeOptions":{"rightIconColor":"#4527A4","isBadge":true,"isUrlIcon":true,"isButton":true,"isMaxWidth":true},"columns":{"desktop":2,"tablet":2,"mobile":1},"themes":{"theme":"theme2"}} /-->' ) );
-                ?>
-                        </div>
-                        <div class="theme3">
-                            <?php 
-                echo wp_kses_post( $this->renderTemplate( '<!-- wp:ilb/icon-list {"lists":[{"icon":{"class":"fa-solid fa-star"},"text":"List items with a star","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://i.ibb.co.com/X5kT0kp/facebook.png"},{"icon":{"class":"fa-solid fa-check-circle"},"text":"List items with circle","des":"Type your description here","featureDes":"Feature with circle check","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://static.vecteezy.com/system/resources/previews/016/716/467/non_2x/twitter-icon-free-png.png"},{"icon":{"class":"fa-solid fa-check-square"},"text":"List items with square check","des":"Type your description here","featureDes":"Feature with square check","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"},{"icon":{"class":"fa-solid fa-heart"},"text":"List items with heart","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png"},{"icon":{"class":"fas fa-check-square"},"text":"List item with square check","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://static.vecteezy.com/system/resources/previews/016/716/467/non_2x/twitter-icon-free-png.png"},{"icon":{"class":"fas fa-check-square"},"text":"List item with square check","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://static.vecteezy.com/system/resources/previews/016/716/467/non_2x/twitter-icon-free-png.png"}],"width":"660px","columns":{"desktop":3,"tablet":2,"mobile":1},"themes":{"theme":"theme3"}} /-->' ) );
-                ?>
-                        </div>
-                        <div class="theme4">
-                            <?php 
-                echo wp_kses_post( $this->renderTemplate( '<!-- wp:ilb/icon-list {"lists":[{"icon":{"class":"fa-solid fa-star"},"text":"List items with a star","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://i.ibb.co.com/X5kT0kp/facebook.png"},{"icon":{"class":"fa-solid fa-check-circle"},"text":"List items with circle","des":"Type your description here","featureDes":"Feature with circle check","link":"dfdf","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://static.vecteezy.com/system/resources/previews/016/716/467/non_2x/twitter-icon-free-png.png"},{"icon":{"class":"fa-solid fa-check-square"},"text":"List items with check","des":"Type your description here","featureDes":"Feature with square check","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"},{"icon":{"class":"fa-solid fa-heart"},"text":"List items with heart","des":"Type your description here","featureDes":"Feature with star","link":"dfdff","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png"}],"columns":{"desktop":2,"tablet":2,"mobile":1},"themes":{"theme":"theme4"}} /-->' ) );
-                ?>
-                        </div>
-                        <div class="theme5">
-                            <?php 
-                echo wp_kses_post( $this->renderTemplate( '<!-- wp:ilb/icon-list {"lists":[{"icon":{"class":"fa-solid fa-star"},"text":"List items with a star","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://i.ibb.co.com/X5kT0kp/facebook.png"},{"icon":{"class":"fa-solid fa-check-circle"},"text":"List items with circle","des":"Type your description here","featureDes":"Feature with circle check","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://static.vecteezy.com/system/resources/previews/016/716/467/non_2x/twitter-icon-free-png.png"},{"icon":{"class":"fa-solid fa-check-square"},"text":"List items with square check","des":"Type your description here","featureDes":"Feature with square check","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"},{"icon":{"class":"fa-solid fa-heart"},"text":"List items with heart","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png"},{"icon":{"class":"fas fa-check-square"},"text":"List item with square check","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://static.vecteezy.com/system/resources/previews/016/716/467/non_2x/twitter-icon-free-png.png"},{"icon":{"class":"fas fa-check-square"},"text":"List item with square check","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://static.vecteezy.com/system/resources/previews/016/716/467/non_2x/twitter-icon-free-png.png"}],"width":"641px","columns":{"desktop":3,"tablet":2,"mobile":1},"themes":{"theme":"theme5"}} /-->' ) );
-                ?>
-                        </div>
-                        <div class="theme6">
-                            <?php 
-                echo wp_kses_post( $this->renderTemplate( '<!-- wp:ilb/icon-list {"lists":[{"icon":{"class":"fa-solid fa-star"},"text":"List items with a star","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://i.ibb.co.com/X5kT0kp/facebook.png"},{"icon":{"class":"fa-solid fa-check-circle"},"text":"List items with circle","des":"Type your description here","featureDes":"Feature with circle check","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://static.vecteezy.com/system/resources/previews/016/716/467/non_2x/twitter-icon-free-png.png"},{"icon":{"class":"fa-solid fa-check-square"},"text":"List items with check","des":"Type your description here","featureDes":"Feature with square check","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"},{"icon":{"class":"fa-solid fa-heart"},"text":"List items with heart","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png"}],"columns":{"desktop":2,"tablet":2,"mobile":1},"listIconColors":{"color":"#fff","bg":"rgba(5, 150, 105, 1)"},"themes":{"theme":"theme6"}} /-->' ) );
-                ?>
-                        </div>
-                        <div class="theme7">
-                            <?php 
-                echo wp_kses_post( $this->renderTemplate( '<!-- wp:ilb/icon-list {"lists":[{"icon":{"class":"fa-solid fa-star"},"text":"List items with a star","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://i.ibb.co.com/X5kT0kp/facebook.png"},{"icon":{"class":"fa-solid fa-check-circle"},"text":"List items with circle","des":"Type your description here","featureDes":"Feature with circle check","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://static.vecteezy.com/system/resources/previews/016/716/467/non_2x/twitter-icon-free-png.png"},{"icon":{"class":"fa-solid fa-check-square"},"text":"List items with square check","des":"Type your description here","featureDes":"Feature with square check","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"},{"icon":{"class":"fa-solid fa-heart"},"text":"List items with heart","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png"},{"icon":{"class":"fas fa-check-square"},"text":"List item with square check","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://static.vecteezy.com/system/resources/previews/016/716/467/non_2x/twitter-icon-free-png.png"},{"icon":{"class":"fas fa-check-square"},"text":"List item with square check","des":"Type your description here","featureDes":"Feature with star","link":"","badgeTitle":"Popular","theme6BtnTitle":"action","uploadIconUrl":"https://static.vecteezy.com/system/resources/previews/016/716/467/non_2x/twitter-icon-free-png.png"}],"width":"660px","columns":{"desktop":3,"tablet":2,"mobile":1},"themes":{"theme":"theme7"}} /-->' ) );
-                ?>
-                        </div>
-                    </div>
                 </div>
-<?php 
+                <?php 
             }
 
             function adminEnqueueScripts() {
                 $screen = get_current_screen();
                 if ( isset( $screen->post_type ) && $screen->post_type === 'icon-list-block' ) {
                     wp_enqueue_style(
-                        'admin-post-css',
-                        ILB_DIR_URL . 'build/admin-post-css.css',
+                        'shortcode-style',
+                        ILB_DIR_URL . 'build/shortcode-style.css',
                         [],
                         ILB_VERSION
                     );
                     wp_enqueue_script(
-                        'admin-post-js',
-                        ILB_DIR_URL . 'build/admin-post.js',
+                        'shortcode-js',
+                        ILB_DIR_URL . 'build/shortcode-js.js',
                         [],
                         ILB_VERSION,
                         true
@@ -334,14 +289,14 @@ if ( function_exists( 'ilb_fs' ) ) {
                         '1'
                     );
                     wp_enqueue_style(
-                        'ilb-admin-help',
-                        ILB_DIR_URL . 'build/admin-help.css',
+                        'ilb-dashboard-help',
+                        ILB_DIR_URL . 'build/dashboard.css',
                         ['ilb-view'],
                         ILB_VERSION
                     );
                     wp_enqueue_script(
-                        'ilb-admin-help',
-                        ILB_DIR_URL . 'build/admin-help.js',
+                        'ilb-dashboard-help',
+                        ILB_DIR_URL . 'build/dashboard.js',
                         [
                             'react',
                             'react-dom',
@@ -350,7 +305,7 @@ if ( function_exists( 'ilb_fs' ) ) {
                         ],
                         ILB_VERSION
                     );
-                    wp_set_script_translations( 'ilb-admin-help', 'icon-list', ILB_DIR_PATH . 'languages' );
+                    wp_set_script_translations( 'ilb-dashboard-help', 'icon-list', ILB_DIR_PATH . 'languages' );
                 }
             }
 

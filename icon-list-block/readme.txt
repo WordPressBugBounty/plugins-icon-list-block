@@ -1,10 +1,10 @@
-=== Icon List Block ===
+=== Icon List Block – Add Icon-Based Lists with Custom Styles ===
 Contributors: bplugins, abuhayat, charlescormier, noornabi2 , freemius
 Donate link: https://www.buymeacoffee.com/abuhayat
 Tags: block, icon list, bullet list, menu icon, list icon
-Requires at least: 6.5+
+Requires at least: 6.2+
 Tested up to: 6.7.1
-Stable tag: 1.1.9
+Stable tag: 1.2.3
 Requires PHP: 7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,25 +13,41 @@ Create a list with an icon with this block plugin.
 
 == Description ==
 
-Create a list with an icon with this block plugin. If you want to make a list with icons this plugin is for you. It comes up with many options to fulfill your needs.
+The #1 No-Code Icon List Block Plugin – Trusted by 5000+ Websites Worldwide.
+
+[**Icon List Block**](https://bplugins.com/products/icon-list-block) | [**Documentation**](https://bplugins.com/docs/icon-list-block/) | [**Pricing**](https://bplugins.com/products/icon-list-block/pricing/) | [**Support**](https://bplugins.com/support/) | [**Demo**](https://bplugins.com/products/icon-list-block/#demos)
+
+[**Icon List Block**](https://bplugins.com/products/icon-list-block) lets you create clean, stylish, and highly customizable icon-based lists with ease. Choose from multiple themes, custom icons, badges, and layout options to highlight features, services, or key information. Each list item supports individual links, animations, and advanced styling controls for full design flexibility. It works seamlessly with the Full Site Editor and requires no external block libraries. Perfect for creating visually engaging and interactive content on any WordPress website.
 
 
-👉[Plugin Demo](https://bblockswp.com/demo/tabbed-contents-default/) | [Get Pro Version](https://bplugins.com/products/icon-list-block/#pricing)👈
+**[Buy The Pro](https://bplugins.com/products/icon-list-block/pricing "Buy Pro version")**
 
 
 = Key Features =
 - **Comprehensive Customization Options**: Arrange your showcase effortlessly with a wide range of settings tailored to your preferences.
 - **Advanced Controls**: Includes extensive controls for link management, rotation, alignment, colors, borders, padding, margins, and more.
 - **Custom Icon Selection**: Choose your preferred icons to enhance each list item with a personalized touch.
-- **Custom Upload images**: Upload and use custom images to personalize your list items and make your content stand out.
 - **Badge Title Configuration**: Assign specific titles to list item badges for added context and detail.
 - **Unlimited List Items**: Add as many list items as you need, complete with customizable bullet points.
 - **URL-Specific List Items**: Define URLs for individual list items to make them interactive and functional.
 - **Theme Customization**: Select from various themes to match your design preferences.
-- **Custom Set Grid for themes**: Customize grid layouts for themes to organize and display your list items with precision and style.
-- **Add Grid Styles**: Choose from a variety of grid styles to create visually appealing and organized layouts for your list items.
 - **Full Site Editor Compatibility**: Works perfectly with the Site Editor for a smooth editing experience.
 - **No Block Library Dependency**: Operates independently without requiring any additional block libraries. 🎉
+
+
+== 🚀 Upgrade to Text Typing Pro ==
+
+- **Choose Your Preferred Theme**: Select the theme of your choice to personalize your experience and give your website the look and feel that suits your style.
+- **Background On Your List Item**: Customize the background of your list items to enhance their appearance and match your design preferences.
+- **Hide/Show List Item URL Icon**: Toggle the visibility of URL icons for list items, allowing you to show or hide them based on your design needs.
+- **Hide/Show List Item Badge**: Enable or disable badges for list items to highlight specific content or keep the design clean and simple.
+- **Badge Title Input Field**: Provide a title for the badge to display descriptive or relevant text alongside your list items.
+- **Badge Text Styles**: 'Customize the typography of badge text, including font style, size, weight, and spacing, to match your design aesthetics.
+- **Badge Text Color & Background**: Set the color and background for the badge text to ensure it stands out and complements your design.
+- **Icon Animated styles**: Set a variant styles for the animated pulse effect to draw attention and enhance visual engagement.
+- **Custom Upload images**: Upload and use custom images to personalize your list items and make your content stand out.
+- **Custom styles Grid for themes**: Customize grid layouts for themes to organize and display your list items with precision and style.
+- **Premium Animations**: Exclusive smooth effects available only in Pro.
 
 
 = How to use =
@@ -107,6 +123,10 @@ You can use unlimited times as you want.
 
 You can post your questions on the [support forum here](https://wordpress.org/support/plugin/icon-list/)
 
+= Where do I report security bugs found in this plugin? =
+
+Please report security bugs found in the source code of the Icon List Block plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/9e5fc67e-17a9-4c40-9dfd-14c9c61bf8db). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 
 == Screenshots ==
 
@@ -121,6 +141,20 @@ You can post your questions on the [support forum here](https://wordpress.org/su
 
 
 == Changelog ==
+
+= 1.2.3 - 13 Nov 25 =
+* Freemius sdk version updated
+* Demo Created and applied
+
+= 1.2.2 - 9 Nov 25 =
+* shortcode copy issue fixed
+
+= 1.2.1 - 5 Nov 25 =
+* Update freemius_lite sdk version
+
+= 1.2.0 - 13 Oct 25 =
+* Added modern dashboard
+* freemius new sdk version updated
 
 = 1.1.9 - 25 July 25 =
 * freemius new sdk version updated
