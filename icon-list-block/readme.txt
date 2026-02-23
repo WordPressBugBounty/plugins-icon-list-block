@@ -2,9 +2,9 @@
 Contributors: bplugins, abuhayat, charlescormier, noornabi2 , freemius
 Donate link: https://www.buymeacoffee.com/abuhayat
 Tags: block, icon list, bullet list, menu icon, list icon
-Requires at least: 6.2+
+Requires at least: 6.5+
 Tested up to: 6.7.1
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 Requires PHP: 7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,7 +13,7 @@ Create a list with an icon with this block plugin.
 
 == Description ==
 
-The #1 No-Code Icon List Block Plugin – Trusted by 5000+ Websites Worldwide.
+The #1 No-Code Icon List Block Plugin – Trusted by 5000+ Websites Worldwide
 
 [**Icon List Block**](https://bplugins.com/products/icon-list-block) | [**Documentation**](https://bplugins.com/docs/icon-list-block/) | [**Pricing**](https://bplugins.com/products/icon-list-block/pricing/) | [**Support**](https://bplugins.com/support/) | [**Demo**](https://bplugins.com/products/icon-list-block/#demos)
 
@@ -31,6 +31,7 @@ The #1 No-Code Icon List Block Plugin – Trusted by 5000+ Websites Worldwide.
 - **Unlimited List Items**: Add as many list items as you need, complete with customizable bullet points.
 - **URL-Specific List Items**: Define URLs for individual list items to make them interactive and functional.
 - **Theme Customization**: Select from various themes to match your design preferences.
+- **Quick theme Options: Instantly switch between predefined styles to update the animated text appearance.
 - **Full Site Editor Compatibility**: Works perfectly with the Site Editor for a smooth editing experience.
 - **No Block Library Dependency**: Operates independently without requiring any additional block libraries. 🎉
 
@@ -141,6 +142,9 @@ Please report security bugs found in the source code of the Icon List Block plug
 
 
 == Changelog ==
+
+= 1.2.4 - 17 Feb 26 =
+- **Update**: Pro modal upgrade the premium quality designed and Quick themes Change options.
 
 = 1.2.3 - 13 Nov 25 =
 * Freemius sdk version updated
