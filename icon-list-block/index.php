@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Icon List Block
  * Description: Show your icon list in web.
- * Version: 1.2.4
+ * Version: 1.2.5
  * Author: bPlugins
  * Author URI: https://bplugins.com
  * License: GPLv3
@@ -19,7 +19,7 @@ if ( function_exists( 'ilb_fs' ) ) {
     ilb_fs()->set_basename( false, __FILE__ );
 } else {
     // Constant
-    define( 'ILB_VERSION', ( isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.2.4' ) );
+    define( 'ILB_VERSION', ( isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.2.5' ) );
     define( 'ILB_DIR_URL', plugin_dir_url( __FILE__ ) );
     define( 'ILB_DIR_PATH', plugin_dir_path( __FILE__ ) );
     define( 'ILB_HAS_FREE', 'icon-list-block/index.php' === plugin_basename( __FILE__ ) );
@@ -159,8 +159,12 @@ if ( function_exists( 'ilb_fs' ) ) {
                 register_post_type( 'icon-list-block', array(
                     'label'         => 'Icon List',
                     'labels'        => [
-                        'add_new'        => 'Add New',
-                        'add_new_item'   => 'Add New Icon List',
+                        'name'           => 'Icon List',
+                        'singular_name'  => 'Icon List',
+                        'menu_name'      => 'Icon List',
+                        'all_items'      => 'ShortCode Generator',
+                        'add_new'        => 'Add New ShortCode',
+                        'add_new_item'   => 'Add New ShortCode',
                         'edit_item'      => 'Edit Tabbed',
                         'not_found'      => 'There is no please add one',
                         'item_published' => 'Icon List Published',
@@ -219,7 +223,7 @@ if ( function_exists( 'ilb_fs' ) ) {
                 add_submenu_page(
                     'edit.php?post_type=icon-list-block',
                     'Demo Page',
-                    'Demo & Help',
+                    'Help & Demos',
                     'manage_options',
                     'ilb_demo_page',
                     [$this, 'ilb_render_demo_page']
@@ -236,8 +240,10 @@ if ( function_exists( 'ilb_fs' ) ) {
                 <div id="ilbDashboard"
                         data-info="<?php 
                 echo esc_attr( wp_json_encode( [
-                    'version'   => ILB_VERSION,
-                    'isPremium' => ilbIsPremium(),
+                    'version'            => ILB_VERSION,
+                    'isPremium'          => ilbIsPremium(),
+                    'hasPro'             => ILB_HAS_PRO,
+                    'licenseActiveNonce' => wp_create_nonce( 'bPlLicenseActivation' ),
                 ] ) );
                 ?>"
                         >
@@ -299,9 +305,11 @@ if ( function_exists( 'ilb_fs' ) ) {
                         ILB_DIR_URL . 'build/dashboard.js',
                         [
                             'react',
+                            'wp-api',
                             'react-dom',
                             'wp-components',
-                            'fs'
+                            'fs',
+                            'wp-util'
                         ],
                         ILB_VERSION
                     );
@@ -312,5 +320,8 @@ if ( function_exists( 'ilb_fs' ) ) {
         }
 
         new ILBPlugin();
+    }
+    if ( ILB_HAS_PRO ) {
+        require_once ILB_DIR_PATH . 'inc/LicenseActivation.php';
     }
 }

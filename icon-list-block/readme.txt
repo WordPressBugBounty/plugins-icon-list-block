@@ -4,7 +4,7 @@ Donate link: https://www.buymeacoffee.com/abuhayat
 Tags: block, icon list, bullet list, menu icon, list icon
 Requires at least: 6.5+
 Tested up to: 6.7.1
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 Requires PHP: 7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -143,7 +143,11 @@ Please report security bugs found in the source code of the Icon List Block plug
 
 == Changelog ==
 
-= 1.2.4 - 17 Feb 26 =
+= 1.2.5 - 26 Feb 26 =
+- **Update**: Update dashboard.
+- **Update**: Rename dashboard menu item.
+
+= 1.2.4 - 23 Feb 26 =
 - **Update**: Pro modal upgrade the premium quality designed and Quick themes Change options.
 
 = 1.2.3 - 13 Nov 25 =
