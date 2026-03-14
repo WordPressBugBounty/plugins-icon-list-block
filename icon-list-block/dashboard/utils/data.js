@@ -9,7 +9,7 @@ export const dashboardInfo = (info) => {
     name: `Icon List Block${proSuffix}`,
     displayName: `Icon List Block${proSuffix} - Add Icon-Based Lists with Custom Styles`,
     description:
-      "Icon List Block lets you create clean, stylish, and highly customizable icon-based lists with ease. Choose from multiple themes, custom icons, badges, and layout options to highlight features, services, or key information. Each list item supports individual links, animations, and advanced styling controls for full design flexibility. It works seamlessly with the Full Site Editor and requires no external block libraries. Perfect for creating visually engaging and interactive content on any WordPress website.",
+      "Create clean and customizable icon-based lists to highlight features, services, or key information. Fully compatible with the Full Site Editor and requires no external block libraries.",
     slug,
     version,
     isPremium,
