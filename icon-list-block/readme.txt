@@ -4,7 +4,7 @@ Donate link: https://www.buymeacoffee.com/abuhayat
 Tags: block, icon list, bullet list, menu icon, list icon
 Requires at least: 6.5+
 Tested up to: 6.9.3
-Stable tag: 1.2.7
+Stable tag: 1.2.8
 Requires PHP: 7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,7 +36,7 @@ The #1 No-Code Icon List Block Plugin – Trusted by 5000+ Websites Worldwide
 - **No Block Library Dependency**: Operates independently without requiring any additional block libraries. 🎉
 
 
-== 🚀 Upgrade to Text Typing Pro ==
+== 🚀 Upgrade to Icon List Block Pro ==
 
 - **Choose Your Preferred Theme**: Select the theme of your choice to personalize your experience and give your website the look and feel that suits your style.
 - **Background On Your List Item**: Customize the background of your list items to enhance their appearance and match your design preferences.
@@ -142,6 +142,10 @@ Please report security bugs found in the source code of the Icon List Block plug
 
 
 == Changelog ==
+
+= 1.2.8 - 30 March 26 =
+- **Fixed**: Dashboard License Activation issue fixed.
+- **Update**: Freemius sdk latest version updated.
 
 = 1.2.7 - 14 March 26 =
 - **Fixed**: dataset issue fixed.
