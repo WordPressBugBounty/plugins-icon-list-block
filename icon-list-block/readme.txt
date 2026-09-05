@@ -1,11 +1,11 @@
 === Icon List Block – Add Icon-Based Lists with Custom Styles ===
-Contributors: bplugins, abuhayat, charlescormier, noornabi2 , freemius
+Contributors: bplugins, abuhayat, shihabshamim , freemius
 Donate link: https://www.buymeacoffee.com/abuhayat
 Tags: block, icon list, bullet list, menu icon, list icon
 Requires at least: 6.5+
-Tested up to: 6.9.3
-Stable tag: 1.2.8
-Requires PHP: 7.1
+Tested up to: 7.1
+Stable tag: 1.2.9
+Requires PHP: 7.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,12 +139,26 @@ Please report security bugs found in the source code of the Icon List Block plug
 6. Theme 4
 7. Theme 5
 8. Theme 7
+9. Animated Checklist
+10. Circular Progress
+11. FAQ Accordion 
+12. Hexagon Icons 
+13. Magazine List
+14. Minimal List 
+15. Process Steps 
+16. Service Cards 
+17. Terminal List 
+18. Vertical Timeline 
+19. Zigzag List 
+
 
 
 == Changelog ==
+= 1.2.9 - 05 September 26 =
+- **New**: Added 11+ new blocks.
 
 = 1.2.8 - 30 March 26 =
-- **Fixed**: Dashboard License Activation issue fixed.
+- **Update**: Added a modern and intuitive dashboard layout.
 - **Update**: Freemius sdk latest version updated.
 
 = 1.2.7 - 14 March 26 =
